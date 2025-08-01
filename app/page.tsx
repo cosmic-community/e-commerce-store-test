@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import cosmic from '@/lib/cosmic'
-import { Product, Collection, CosmicResponse } from '@/lib/types'
+import { Product, Collection } from '@/lib/types'
 
 async function getProducts(): Promise<Product[]> {
   try {
@@ -43,15 +43,15 @@ export default async function Home() {
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
               Premium E-Commerce Store
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Discover our curated collection of premium products, from cutting-edge electronics to stylish fashion accessories.
             </p>
             <Link
               href="/products"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="btn-primary"
             >
               Shop Now
             </Link>
@@ -61,7 +61,7 @@ export default async function Home() {
 
       {/* Collections Section */}
       <div className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
           Shop by Collection
         </h2>
         <div className="grid md:grid-cols-2 gap-8 mb-16">
@@ -69,7 +69,7 @@ export default async function Home() {
             <Link
               key={collection.id}
               href={`/collections/${collection.slug}`}
-              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <div className="aspect-w-16 aspect-h-9 bg-gray-200">
                 {collection.metadata.featured_image && (
@@ -81,9 +81,9 @@ export default async function Home() {
                 )}
               </div>
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <h3 className="text-2xl font-bold mb-2">{collection.metadata.name}</h3>
-                  <p className="text-lg opacity-90">{collection.metadata.description}</p>
+                <div className="text-center text-white p-4">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">{collection.metadata.name}</h3>
+                  <p className="text-sm md:text-lg opacity-90">{collection.metadata.description}</p>
                 </div>
               </div>
             </Link>
@@ -91,15 +91,15 @@ export default async function Home() {
         </div>
 
         {/* Featured Products */}
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
           Featured Products
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {products.map((product) => (
             <Link
               key={product.id}
               href={`/products/${product.slug}`}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden group"
+              className="bg-white rounded-xl shadow-lg card-hover overflow-hidden group"
             >
               <div className="aspect-w-16 aspect-h-12 bg-gray-200">
                 <img
@@ -108,28 +108,28 @@ export default async function Home() {
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <div className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
                   {product.metadata.name}
                 </h3>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="flex items-center space-x-2">
                     {product.metadata.sale_price ? (
                       <>
-                        <span className="text-2xl font-bold text-red-600">
+                        <span className="text-xl md:text-2xl font-bold text-red-600">
                           ${product.metadata.sale_price}
                         </span>
-                        <span className="text-lg text-gray-500 line-through">
+                        <span className="text-sm md:text-lg text-gray-500 line-through">
                           ${product.metadata.price}
                         </span>
                       </>
                     ) : (
-                      <span className="text-2xl font-bold text-gray-900">
+                      <span className="text-xl md:text-2xl font-bold text-gray-900">
                         ${product.metadata.price}
                       </span>
                     )}
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  <span className={`px-3 py-1 rounded-full text-xs md:text-sm font-medium ${
                     product.metadata.in_stock 
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-red-100 text-red-800'
@@ -145,7 +145,7 @@ export default async function Home() {
         <div className="text-center mt-12">
           <Link
             href="/products"
-            className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+            className="btn-secondary"
           >
             View All Products
           </Link>

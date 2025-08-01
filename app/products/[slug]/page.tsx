@@ -50,7 +50,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
-          className={`w-5 h-5 ${
+          className={`w-4 h-4 md:w-5 md:h-5 ${
             star <= rating ? 'text-yellow-400' : 'text-gray-300'
           }`}
           fill="currentColor"
@@ -80,20 +80,20 @@ export default async function ProductPage({ params }: PageProps) {
     <main className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <nav className="mb-8">
-          <Link href="/products" className="text-blue-600 hover:text-blue-800">
+          <Link href="/products" className="text-blue-600 hover:text-blue-800 font-medium">
             ← Back to Products
           </Link>
         </nav>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
             {/* Product Images */}
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden mb-4">
                 <img
                   src={`${product.thumbnail}?w=800&h=800&fit=crop&auto=format,compress`}
                   alt={product.metadata.name}
-                  className="w-full h-96 object-cover"
+                  className="w-full h-80 md:h-96 object-cover"
                 />
               </div>
               {product.metadata.images && product.metadata.images.length > 1 && (
@@ -103,7 +103,7 @@ export default async function ProductPage({ params }: PageProps) {
                       <img
                         src={`${image.imgix_url}?w=200&h=200&fit=crop&auto=format,compress`}
                         alt={`${product.metadata.name} ${index + 1}`}
-                        className="w-full h-20 object-cover"
+                        className="w-full h-16 md:h-20 object-cover"
                       />
                     </div>
                   ))}
@@ -112,7 +112,7 @@ export default async function ProductPage({ params }: PageProps) {
             </div>
 
             {/* Product Details */}
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="mb-4">
                 {product.metadata.collection && (
                   <Link
@@ -124,7 +124,7 @@ export default async function ProductPage({ params }: PageProps) {
                 )}
               </div>
 
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                 {product.metadata.name}
               </h1>
 
@@ -135,13 +135,13 @@ export default async function ProductPage({ params }: PageProps) {
                 </span>
               </div>
 
-              <div className="flex items-center space-x-4 mb-6">
+              <div className="flex items-center space-x-4 mb-6 flex-wrap gap-2">
                 {product.metadata.sale_price ? (
                   <>
-                    <span className="text-3xl font-bold text-red-600">
+                    <span className="text-2xl md:text-3xl font-bold text-red-600">
                       ${product.metadata.sale_price}
                     </span>
-                    <span className="text-xl text-gray-500 line-through">
+                    <span className="text-lg md:text-xl text-gray-500 line-through">
                       ${product.metadata.price}
                     </span>
                     <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm font-medium">
@@ -149,7 +149,7 @@ export default async function ProductPage({ params }: PageProps) {
                     </span>
                   </>
                 ) : (
-                  <span className="text-3xl font-bold text-gray-900">
+                  <span className="text-2xl md:text-3xl font-bold text-gray-900">
                     ${product.metadata.price}
                   </span>
                 )}
@@ -180,9 +180,9 @@ export default async function ProductPage({ params }: PageProps) {
               </div>
 
               <button
-                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                   product.metadata.in_stock
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
                 disabled={!product.metadata.in_stock}
@@ -194,14 +194,14 @@ export default async function ProductPage({ params }: PageProps) {
         </div>
 
         {/* Reviews Section */}
-        <div className="mt-12 bg-white rounded-xl shadow-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
+        <div className="mt-8 md:mt-12 bg-white rounded-xl shadow-lg p-4 md:p-6">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
           
           {reviews.length > 0 ? (
             <div className="space-y-6">
               {reviews.map((review) => (
                 <div key={review.id} className="border-b border-gray-200 pb-6 last:border-b-0">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
                     <div className="flex items-center space-x-3">
                       <h4 className="font-semibold text-gray-900">
                         {review.metadata.customer_name}
@@ -215,7 +215,7 @@ export default async function ProductPage({ params }: PageProps) {
                     <StarRating rating={parseInt(review.metadata.rating.key)} />
                   </div>
                   <h5 className="font-medium text-gray-900 mb-2">{review.title}</h5>
-                  <p className="text-gray-600">{review.metadata.review_text}</p>
+                  <p className="text-gray-600 text-sm md:text-base">{review.metadata.review_text}</p>
                 </div>
               ))}
             </div>

@@ -58,7 +58,7 @@ export default async function CollectionPage({ params }: PageProps) {
     <main className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <nav className="mb-8">
-          <Link href="/" className="text-blue-600 hover:text-blue-800">
+          <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
             ← Back to Home
           </Link>
         </nav>
@@ -66,19 +66,19 @@ export default async function CollectionPage({ params }: PageProps) {
         {/* Collection Header */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
           {collection.metadata.featured_image && (
-            <div className="h-64 bg-gray-200">
+            <div className="h-48 md:h-64 bg-gray-200">
               <img
                 src={`${collection.metadata.featured_image.imgix_url}?w=1200&h=400&fit=crop&auto=format,compress`}
                 alt={collection.metadata.name}
-                className="w-full h-64 object-cover"
+                className="w-full h-48 md:h-64 object-cover"
               />
             </div>
           )}
-          <div className="p-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="p-6 md:p-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {collection.metadata.name}
             </h1>
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-base md:text-lg text-gray-600 mb-4">
               {collection.metadata.description}
             </p>
             <p className="text-sm text-gray-500">
@@ -89,14 +89,14 @@ export default async function CollectionPage({ params }: PageProps) {
 
         {/* Products Grid */}
         {products.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {products.map((product) => (
               <Link
                 key={product.id}
                 href={`/products/${product.slug}`}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden group"
+                className="bg-white rounded-xl shadow-lg card-hover overflow-hidden group"
               >
-                <div className="aspect-w-16 aspect-h-12 bg-gray-200">
+                <div className="aspect-w-4 aspect-h-3 bg-gray-200">
                   <img
                     src={`${product.thumbnail}?w=600&h=400&fit=crop&auto=format,compress`}
                     alt={product.metadata.name}
@@ -104,14 +104,14 @@ export default async function CollectionPage({ params }: PageProps) {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {product.metadata.name}
                   </h3>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                     <div className="flex items-center space-x-2">
                       {product.metadata.sale_price ? (
                         <>
-                          <span className="text-xl font-bold text-red-600">
+                          <span className="text-lg md:text-xl font-bold text-red-600">
                             ${product.metadata.sale_price}
                           </span>
                           <span className="text-sm text-gray-500 line-through">
@@ -119,7 +119,7 @@ export default async function CollectionPage({ params }: PageProps) {
                           </span>
                         </>
                       ) : (
-                        <span className="text-xl font-bold text-gray-900">
+                        <span className="text-lg md:text-xl font-bold text-gray-900">
                           ${product.metadata.price}
                         </span>
                       )}
@@ -146,7 +146,7 @@ export default async function CollectionPage({ params }: PageProps) {
             </p>
             <Link
               href="/products"
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="btn-primary"
             >
               View All Products
             </Link>
